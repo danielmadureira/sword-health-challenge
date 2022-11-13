@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  mysql8:
+    image: mysql:8.0.31
+    restart: always
+    volumes:
+      - "./.docker/mysql/volume:/var/lib/mysql"
+    environment:
+      MYSQL_USER: "${MYSQL_USER_NAME:?err}"
+      MYSQL_PASSWORD: "${MYSQL_USER_PSWD:?err}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PSWD:?err}"
+
+  rabbitmq:
+    image: rabbitmq:3.11.3
+    ports:
+      - 5672:5672
+      - 15672:15672
