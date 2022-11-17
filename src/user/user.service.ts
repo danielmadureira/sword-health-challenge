@@ -28,11 +28,16 @@ export class UserService {
   }
 
   async createUser(userData: CreateUserDTO): Promise<User> {
-    userData.password = await bcrypt.hash(
+    const passwordHash = await bcrypt.hash(
       userData.password,
       this.configService.get<number>('BCRYPT_ROUNDS'),
     );
 
-    return await this.usersRepository.create(userData);
+    const createData = {
+      ...userData,
+      password: passwordHash,
+    };
+
+    return await this.usersRepository.create(createData);
   }
 }

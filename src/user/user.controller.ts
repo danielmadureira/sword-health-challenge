@@ -5,7 +5,6 @@ import {
   UseGuards,
   Post,
   Body,
-  UnauthorizedException,
 } from '@nestjs/common';
 
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -15,7 +14,7 @@ import { RolesEnum } from '../common/enums/roles.enum';
 import { UserService } from './user.service';
 import { CreateUserDTO } from './dto/create-user.dto';
 
-@Controller('users')
+@Controller('user')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
   constructor(private userService: UserService) {}

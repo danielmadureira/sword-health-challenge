@@ -3,11 +3,11 @@ import { RolesEnum } from 'src/common/enums/roles.enum';
 
 export class CreateUserDTO {
   @IsString()
-  username: string;
+  readonly username: string;
 
   @IsString()
-  password: string;
+  readonly password: string;
 
   @IsEnum(RolesEnum)
-  role: RolesEnum;
+  readonly role: RolesEnum;
 }
