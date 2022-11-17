@@ -1,5 +1,4 @@
 import { IsISO8601, IsString, Length, MaxLength } from 'class-validator';
-import { Type } from 'class-transformer';
 
 export class UpsertTaskDTO {
   @IsString()
@@ -8,6 +7,5 @@ export class UpsertTaskDTO {
 
   @IsISO8601({ strict: true })
   @Length(10, 10)
-  // @Type(() => Date)
   readonly date: Date;
 }
