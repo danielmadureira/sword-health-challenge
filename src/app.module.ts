@@ -10,6 +10,7 @@ import { TaskModule } from './task/task.module';
   imports: [
     AuthModule,
     UserModule,
+    TaskModule,
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
@@ -28,7 +29,6 @@ import { TaskModule } from './task/task.module';
       }),
       inject: [ConfigService],
     }),
-    TaskModule,
   ],
 })
 export class AppModule {}
