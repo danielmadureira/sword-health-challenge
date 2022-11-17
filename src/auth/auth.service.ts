@@ -1,21 +1,40 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
+
+import * as bcrypt from 'bcrypt';
+import { EntityNotFoundError } from 'typeorm';
+
+import { UserService } from '../user/user.service';
+import { ValidateUserDTO } from './dto/validate-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
+    private usersService: UserService,
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(username);
+  async validateUser(userValidationData: ValidateUserDTO): Promise<any> {
+    let user;
+    try {
+      user = await this.usersService.find({
+        username: userValidationData.username,
+      });
+    } catch (error) {
+      if (error instanceof EntityNotFoundError) {
+        return null;
+      }
 
-    if (user && user.password === pass) {
-      const { ...result } = user;
+      throw error;
+    }
 
-      return result;
+    const isMatch = await bcrypt.compare(
+      userValidationData.password,
+      user.password,
+    );
+
+    if (isMatch) {
+      return user;
     }
 
     return null;
