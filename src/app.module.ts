@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskModule } from './task/task.module';
 
 @Module({

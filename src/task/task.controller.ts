@@ -10,11 +10,12 @@ import {
   Delete,
   NotFoundException,
 } from '@nestjs/common';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { RolesEnum } from 'src/common/enums/roles.enum';
 import { EntityNotFoundError } from 'typeorm';
+
+import { Roles } from '../auth/decorators/roles.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { RolesEnum } from '../common/enums/roles.enum';
 import { UpsertTaskDTO } from './dto/upsert-task.dto';
 import { TaskService } from './task.service';
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
@@ -6,7 +7,6 @@ import * as bcrypt from 'bcrypt';
 
 import { CreateUserDTO } from './dto/create-user.dto';
 import { User } from './user.entity';
-import { ConfigService } from '@nestjs/config';
 
 type UserSearchFilter = {
   id?: number;
