@@ -1,73 +1,80 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Sword-logo-blue.svg/2880px-Sword-logo-blue.svg.png"
+    width="400"
+    alt="Sword Logo" />
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Sword Technical Challenge
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## How to run
+After cloning the project from this repository:
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
+1. Run the environment.
 ```bash
-$ npm install
+$ docker-compose up -d
+```
+Both MySQL and RabbitMQ services must be running after this step.
+
+2. Create a file named `.env` in the root of the project with the following
+content:
+```YAML
+# MISC
+APP_PORT=3001
+BCRYPT_ROUNDS=15
+
+# JWT
+JWT_SECRET=905a070622725cca8d4d112d756de636183e8c5e
+JWT_EXP_PERIOD=1h
+
+# MySQL
+MYSQL_HOSTNAME=localhost
+MYSQL_PORT=3306
+MYSQL_DB_NAME=shc-db
+MYSQL_USER_NAME=shc-api-mysql-user
+MYSQL_USER_PSWD=c66Gd?W.H:-8NSq4
+MYSQL_ROOT_PSWD=S9J}papus?Qo9q)N
+
+#RabbitMQ
+RABBITMQ_URL=amqp://guest:guest@localhost:5672
+RABBITMQ_NOTIFICATION_QUEUE=task_notification
 ```
 
-## Running the app
-
+3. Run all migrations.
 ```bash
-# development
+$ npm run migration:run
+```
+
+4. Run the project.
+```bash
 $ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+## Postman
+For testing, there are Postman collection & environment files inside the
+`postman` directory in the root of the project that can be used for testing.
 
-```bash
-# unit tests
-$ npm run test
+There are two users already created for testing:
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+A `MANAGER`:
+```JSON
+{
+  "username": "Marcus Aurelius",
+  "password": 14159265
+}
 ```
 
-## Support
+And a `TECHNICIAN`:
+```JSON
+{
+  "username": "Julius Caesar",
+  "password": 14159265
+}
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+You can also create a new user on the `POST /user` endpoint.
 
-## Stay in touch
+## TODO
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- [ ] Add encryption to task creation
+- [ ] Create unit tests
