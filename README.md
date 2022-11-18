@@ -77,4 +77,5 @@ You can also create a new user on the `POST /user` endpoint.
 ## TODO
 
 - [ ] Add encryption to task creation
+- [ ] Create a websocket to consume notification queue
 - [ ] Create unit tests
