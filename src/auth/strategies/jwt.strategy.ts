@@ -17,7 +17,7 @@ export class JWTStrategy extends PassportStrategy(Strategy) {
   }
 
   validate(payload: any) {
-    return this.userService.find({
+    return this.userService.findOne({
       id: payload.sub,
       username: payload.username,
     });

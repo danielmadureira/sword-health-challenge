@@ -28,6 +28,6 @@ export class UserController {
   @Post()
   @Roles(RolesEnum.MANAGER)
   createUser(@Body() createUserDTO: CreateUserDTO) {
-    return this.userService.createUser(createUserDTO);
+    return this.userService.create(createUserDTO);
   }
 }

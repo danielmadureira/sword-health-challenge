@@ -17,7 +17,7 @@ export class AuthService {
   async validateUser(userValidationData: ValidateUserDTO): Promise<any> {
     let user;
     try {
-      user = await this.usersService.find({
+      user = await this.usersService.findOne({
         username: userValidationData.username,
       });
     } catch (error) {

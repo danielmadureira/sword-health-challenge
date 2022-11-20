@@ -21,13 +21,13 @@ export class UserService {
     private configService: ConfigService,
   ) {}
 
-  find(filter: UserSearchFilter): Promise<User> {
+  findOne(filter: UserSearchFilter): Promise<User> {
     const result = this.usersRepository.findOneByOrFail(filter);
 
     return result;
   }
 
-  async createUser(userData: CreateUserDTO): Promise<User> {
+  async create(userData: CreateUserDTO): Promise<User> {
     const passwordHash = await bcrypt.hash(
       userData.password,
       this.configService.get<number>('BCRYPT_ROUNDS'),
