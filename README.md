@@ -52,9 +52,13 @@ $ npm run migration:run
 $ npm run start
 ```
 
+## Documentation
+API documentation is available at [`/api`](http://localhost:3001/api) endpoint
+in OpenAPI (Swagger) format.
+
 ## Postman
-For testing, there are Postman collection & environment files inside the
-`postman` directory in the root of the project that can be used for testing.
+There are Postman files inside the `postman` directory in the root of the
+project that can be used for testing.
 
 There are two users already created for testing:
 
@@ -76,8 +80,11 @@ And a `TECHNICIAN`:
 
 You can also create a new user through the `POST /user` endpoint.
 
-## TODO
+## RabbitMQ
+To check RabbitMQ queues, access the
+[management console](http://localhost:15672/) with the following credentials:
 
-- [x] Add encryption to task creation
-- [x] Create unit tests
-- [ ] Create a websocket to consume notification queue
+```Plain text
+username: guest
+password: guest
+```
