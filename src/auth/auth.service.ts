@@ -10,14 +10,14 @@ import { ValidateUserDTO } from './dto/validate-user.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UserService,
+    private userService: UserService,
     private jwtService: JwtService,
   ) {}
 
   async validateUser(userValidationData: ValidateUserDTO): Promise<any> {
     let user;
     try {
-      user = await this.usersService.findOne({
+      user = await this.userService.findOne({
         username: userValidationData.username,
       });
     } catch (error) {
@@ -40,7 +40,7 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
+  login(user: any) {
     const payload = {
       username: user.username,
       sub: user.userId,
