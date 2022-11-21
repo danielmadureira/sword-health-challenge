@@ -12,7 +12,7 @@ After cloning the project from this repository:
 
 1. Install system dependencies:
 ```bash
-$ npm i
+npm i
 ```
 
 2. Create a file named `.env` in the root of the project with the following
@@ -43,18 +43,24 @@ RABBITMQ_NOTIFICATION_QUEUE=task_notification
 
 3. Run the environment.
 ```bash
-$ docker-compose up -d
+docker-compose up -d
 ```
-Both MySQL and RabbitMQ services must be running after this step.
+Both MySQL and RabbitMQ services must be running after this step but you may
+have to wait a minute or to until the services are fully available.
 
 4. Run all migrations.
 ```bash
-$ npm run migration:run
+npm run migration:run
 ```
 
 5. Run the project.
 ```bash
-$ npm run start
+npm run start
+```
+If you don't have webpack installed globally, you may have to run the following
+command first:
+```bash
+npm link webpack
 ```
 
 ## Documentation
