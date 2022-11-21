@@ -74,10 +74,10 @@ And a `TECHNICIAN`:
 }
 ```
 
-You can also create a new user on the `POST /user` endpoint.
+You can also create a new user through the `POST /user` endpoint.
 
 ## TODO
 
 - [x] Add encryption to task creation
-- [-] Create unit tests
+- [ ] Create unit tests
 - [ ] Create a websocket to consume notification queue
