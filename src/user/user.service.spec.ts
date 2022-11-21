@@ -9,7 +9,7 @@ import { RolesEnum } from '../common/enums/roles.enum';
 import { User } from './user.entity';
 import { UserService } from './user.service';
 
-function generateUserMock(overrideProps = {}): User {
+export function generateUserMock(overrideProps = {}): User {
   return {
     id: parseInt(faker.random.numeric(), 10),
     username: faker.name.fullName(),
@@ -47,6 +47,10 @@ describe('UserService', () => {
     service = module.get<UserService>(UserService);
     repository = module.get<Repository<User>>(getRepositoryToken(User));
     config = module.get<ConfigService>(ConfigService);
+  });
+
+  it("should have it's service defined", () => {
+    expect(service).toBeDefined();
   });
 
   describe('User creation', () => {

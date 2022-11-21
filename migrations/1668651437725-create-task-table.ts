@@ -22,8 +22,7 @@ export class createTaskTable1668651437725 implements MigrationInterface {
           },
           {
             name: 'summary',
-            type: 'varchar',
-            length: '2500',
+            type: 'blob',
           },
           {
             name: 'date',

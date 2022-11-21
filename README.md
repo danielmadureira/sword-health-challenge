@@ -22,6 +22,7 @@ content:
 # MISC
 APP_PORT=3001
 BCRYPT_ROUNDS=15
+ENCRYPTION_KEY_PASSWORD=4ebb1067bf75c6819980ae1f69a6172e87daf9a32d8deec00f30d35a6ecbe34a
 
 # JWT
 JWT_SECRET=905a070622725cca8d4d112d756de636183e8c5e
@@ -35,9 +36,10 @@ MYSQL_USER_NAME=shc-api-mysql-user
 MYSQL_USER_PSWD=c66Gd?W.H:-8NSq4
 MYSQL_ROOT_PSWD=S9J}papus?Qo9q)N
 
-#RabbitMQ
+# RabbitMQ
 RABBITMQ_URL=amqp://guest:guest@localhost:5672
 RABBITMQ_NOTIFICATION_QUEUE=task_notification
+
 ```
 
 3. Run all migrations.
@@ -76,6 +78,6 @@ You can also create a new user on the `POST /user` endpoint.
 
 ## TODO
 
-- [ ] Add encryption to task creation
+- [x] Add encryption to task creation
+- [-] Create unit tests
 - [ ] Create a websocket to consume notification queue
-- [ ] Create unit tests

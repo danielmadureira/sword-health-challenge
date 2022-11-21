@@ -13,8 +13,8 @@ export class Task {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 2500 })
-  summary: string;
+  @Column()
+  summary: Buffer;
 
   @Column()
   date: Date;

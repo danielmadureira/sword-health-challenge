@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EncryptionService } from 'src/encryption/encryption.service';
 import { NotificationModule } from 'src/notification/notification.module';
 import { NotificationService } from 'src/notification/notification.service';
 
@@ -9,7 +10,7 @@ import { TaskService } from './task.service';
 
 @Module({
   imports: [NotificationModule, TypeOrmModule.forFeature([Task])],
-  providers: [TaskService, NotificationService],
+  providers: [TaskService, NotificationService, EncryptionService],
   exports: [TaskService],
   controllers: [TaskController],
 })
