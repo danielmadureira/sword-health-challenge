@@ -10,11 +10,10 @@
 ## How to run
 After cloning the project from this repository:
 
-1. Run the environment.
+1. Install system dependencies:
 ```bash
-$ docker-compose up -d
+$ npm i
 ```
-Both MySQL and RabbitMQ services must be running after this step.
 
 2. Create a file named `.env` in the root of the project with the following
 content:
@@ -42,12 +41,18 @@ RABBITMQ_NOTIFICATION_QUEUE=task_notification
 
 ```
 
-3. Run all migrations.
+3. Run the environment.
+```bash
+$ docker-compose up -d
+```
+Both MySQL and RabbitMQ services must be running after this step.
+
+4. Run all migrations.
 ```bash
 $ npm run migration:run
 ```
 
-4. Run the project.
+5. Run the project.
 ```bash
 $ npm run start
 ```

@@ -36,9 +36,7 @@ describe('UserService', () => {
         {
           provide: getRepositoryToken(User),
           useValue: {
-            create: jest
-              .fn()
-              .mockImplementation(() => Promise.resolve(userMock)),
+            save: jest.fn().mockImplementation(() => Promise.resolve(userMock)),
           },
         },
       ],
@@ -58,7 +56,7 @@ describe('UserService', () => {
       const userDTO = { ...userMock };
       delete userDTO.id;
       const mockHashedPassword = faker.internet.password();
-      const mockConfig = faker.random.numeric(2);
+      const mockConfig = parseInt(faker.random.numeric(2), 10);
 
       const configSpy = jest
         .spyOn(config, 'get')
@@ -68,7 +66,7 @@ describe('UserService', () => {
         .spyOn(bcrypt, 'hash')
         .mockImplementation(() => Promise.resolve(mockHashedPassword));
 
-      const createSpy = jest.spyOn(repository, 'create');
+      const createSpy = jest.spyOn(repository, 'save');
 
       // SUT
       const result = await service.create(userDTO);

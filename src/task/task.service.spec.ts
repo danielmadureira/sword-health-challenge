@@ -117,7 +117,7 @@ describe('TaskService', () => {
       const repoSpy = jest.spyOn(repository, 'findOneByOrFail');
 
       // SUT
-      const result = await service.find({ id: 1 });
+      const result = await service.find({ id: 1, creator: taskMock.creator });
 
       // Assertions
       expect(result).toEqual({
@@ -125,7 +125,7 @@ describe('TaskService', () => {
         summary: expectedDecryptedText,
       });
       expect(encryptionServiceSpy).toHaveBeenCalledWith(taskMock.summary);
-      expect(repoSpy).toBeCalledWith({ id: 1 });
+      expect(repoSpy).toBeCalledWith({ id: 1, creator: taskMock.creator });
     });
 
     it('should return an array of users', async () => {
@@ -161,7 +161,10 @@ describe('TaskService', () => {
       const repoSpy = jest.spyOn(repository, 'save');
 
       // SUT
-      const result = await service.update({ id: taskMock.id }, updateObj);
+      const result = await service.update(
+        { id: taskMock.id, creator: taskMock.creator },
+        updateObj,
+      );
 
       // Assertions
       expect(encryptionSpy).toHaveBeenCalledWith(updateObj.summary);
@@ -185,9 +188,11 @@ describe('TaskService', () => {
         .mockResolvedValue(null);
 
       // SUT
-      await service.delete({ id: taskMock.id });
+      await service.delete(taskMock.id);
 
-      expect(repoFindSpy).toHaveBeenCalledWith({ id: taskMock.id });
+      expect(repoFindSpy).toHaveBeenCalledWith({
+        id: taskMock.id,
+      });
       expect(repoDelSpy).toHaveBeenCalledWith(taskMock);
     });
   });

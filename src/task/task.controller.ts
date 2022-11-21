@@ -42,9 +42,12 @@ export class TaskController {
 
   @Get(':taskId')
   @Roles(RolesEnum.TECHNICIAN)
-  async getTask(@Param('taskId') taskId: number) {
+  async getTask(@Request() request, @Param('taskId') taskId: number) {
     try {
-      return await this.taskService.find({ id: taskId });
+      return await this.taskService.find({
+        id: taskId,
+        creator: request.user,
+      });
     } catch (error) {
       if (error instanceof EntityNotFoundError) {
         throw new NotFoundException();
@@ -57,11 +60,15 @@ export class TaskController {
   @Put(':taskId')
   @Roles(RolesEnum.TECHNICIAN)
   async updateTask(
+    @Request() request,
     @Param('taskId') taskId: number,
     @Body() updateTaskDTO: UpsertTaskDTO,
   ) {
     try {
-      return await this.taskService.update({ id: taskId }, updateTaskDTO);
+      return await this.taskService.update(
+        { id: taskId, creator: request.user },
+        updateTaskDTO,
+      );
     } catch (error) {
       if (error instanceof EntityNotFoundError) {
         throw new NotFoundException();
@@ -75,7 +82,7 @@ export class TaskController {
   @Roles(RolesEnum.MANAGER)
   async deleteTask(@Param('taskId') taskId: number) {
     try {
-      return await this.taskService.delete({ id: taskId });
+      return await this.taskService.delete(taskId);
     } catch (error) {
       if (error instanceof EntityNotFoundError) {
         throw new NotFoundException();

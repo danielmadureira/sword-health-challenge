@@ -21,23 +21,19 @@ export class UserService {
     private configService: ConfigService,
   ) {}
 
-  findOne(filter: UserSearchFilter): Promise<User> {
-    const result = this.usersRepository.findOneByOrFail(filter);
-
-    return result;
+  async findOne(filter: UserSearchFilter): Promise<User> {
+    return await this.usersRepository.findOneByOrFail(filter);
   }
 
   async create(userData: CreateUserDTO): Promise<User> {
-    const passwordHash = await bcrypt.hash(
-      userData.password,
-      this.configService.get<number>('BCRYPT_ROUNDS'),
-    );
+    const saltRounds = parseInt(this.configService.get('BCRYPT_ROUNDS'), 10);
+    const passwordHash = await bcrypt.hash(userData.password, saltRounds);
 
     const createData = {
       ...userData,
       password: passwordHash,
     };
 
-    return await this.usersRepository.create(createData);
+    return await this.usersRepository.save(createData);
   }
 }

@@ -19,6 +19,7 @@ type CreateTaskParams = UpdateTaskParams & { creator: User };
 
 type TaskSearchFilter = {
   id: number;
+  creator: User;
 };
 
 @Injectable()
@@ -52,8 +53,8 @@ export class TaskService {
     return this.convertToReadDTO(await this.taskRepository.save(insertObj));
   }
 
-  async find({ id }: TaskSearchFilter): Promise<ReadTaskDTO> {
-    const task = await this.taskRepository.findOneByOrFail({ id });
+  async find({ id, creator }: TaskSearchFilter): Promise<ReadTaskDTO> {
+    const task = await this.taskRepository.findOneByOrFail({ id, creator });
 
     return this.convertToReadDTO(task);
   }
@@ -83,8 +84,8 @@ export class TaskService {
     return this.convertToReadDTO(await this.taskRepository.save(updatedTask));
   }
 
-  async delete({ id }: TaskSearchFilter): Promise<void> {
-    const task = await this.taskRepository.findOneByOrFail({ id });
+  async delete(taskId: number): Promise<void> {
+    const task = await this.taskRepository.findOneByOrFail({ id: taskId });
     await this.taskRepository.delete(task);
   }
 
